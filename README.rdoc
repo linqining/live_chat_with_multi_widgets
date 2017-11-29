@@ -6,12 +6,12 @@ Checkout the tutorial[http://josephndungu.com/tutorials/gmail-like-chat-applicat
 
 1. Rails server
 
-```bash
+``` shell
 rails s
 ```
 
 or 
-```bash
+``` shell
 rails s -b 0.0.0.0
 ```
 
@@ -19,7 +19,7 @@ rails s -b 0.0.0.0
 
 On other console, 
 
-```bash
+``` shell
 rackup private_pub.ru -s thin -E production
 ```
 
