@@ -12,7 +12,10 @@
 
 ActiveRecord::Schema.define(version: 20140730185251) do
 
-  create_table "conversations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "conversations", force: :cascade do |t|
     t.integer  "sender_id"
     t.integer  "recipient_id"
     t.datetime "created_at"
@@ -21,8 +24,8 @@ ActiveRecord::Schema.define(version: 20140730185251) do
     t.index ["sender_id"], name: "index_conversations_on_sender_id", using: :btree
   end
 
-  create_table "messages", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.text     "body",            limit: 65535
+  create_table "messages", force: :cascade do |t|
+    t.text     "body"
     t.integer  "conversation_id"
     t.integer  "user_id"
     t.datetime "created_at"
@@ -31,7 +34,7 @@ ActiveRecord::Schema.define(version: 20140730185251) do
     t.index ["user_id"], name: "index_messages_on_user_id", using: :btree
   end
 
-  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"

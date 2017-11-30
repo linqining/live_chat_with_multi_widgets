@@ -4,6 +4,7 @@ class ConversationsController < ApplicationController
   layout false
 
   def create
+    Rails.logger.info "====== #{__callee__}: #{__LINE__} "
     if Conversation.between(params[:sender_id],params[:recipient_id]).present?
       @conversation = Conversation.between(params[:sender_id],params[:recipient_id]).first
     else
@@ -14,6 +15,7 @@ class ConversationsController < ApplicationController
   end
 
   def show
+    Rails.logger.info "====== #{__callee__}: #{__LINE__} "
     @conversation = Conversation.find(params[:id])
     @reciever = interlocutor(@conversation)
     @messages = @conversation.messages
