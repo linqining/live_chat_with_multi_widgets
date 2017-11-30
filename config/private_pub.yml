@@ -5,6 +5,6 @@ test:
   server: "http://localhost:9292/faye"
   secret_token: "secret"
 production:
-  server: "https://livechatwithmultiwidgets.herokuapp.com:9292/faye"
+  server: "https://livechatwithmultiwidgets.herokuapp.com/faye"
   secret_token: "livechatwithmultiwidgets"
   signature_expiration: 86400 # one dahttp://ec2-54-234-112-9.compute-1.amazonaws.com/
