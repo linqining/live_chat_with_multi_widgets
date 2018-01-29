@@ -1,16 +1,30 @@
 <% publish_to @path do %>
-    var id = "<%= @conversation.id %>";
-    var chatbox = $("#chatbox_" + id + " .chatboxcontent");
-    var sender_id = "<%= @message.user.id %>";
-    var reciever_id = $('meta[name=user-id]').attr("content");
-
+  var id = "<%= @conversation.id %>";
+  var chatbox = $("#chatbox_" + id + " .chatboxcontent");
+  var sender_id = "<%= @message.user.id %>";
+  var reciever_id = $('meta[name=user-id]').attr("content");
+  var user_typing = "<%= @user_typing %>"
+  if (user_typing) {
+    var clearInterval = 2000;
+    var clearTimerId;
+    if (sender_id != reciever_id) {
+      $('#user-is-typing').html("<%= @message.user.name %>" + 'is typing...');
+      //restart timeout timer
+      clearTimeout(clearTimerId);
+      clearTimerId = setTimeout(function () {
+      //clear user is typing message
+      $('#user-is-typing').html('');
+      }, clearInterval);
+    }   
+  } else {
     chatbox.append("<%= j render( partial: @message ) %>");
     chatbox.scrollTop(chatbox[0].scrollHeight);
-
     if (sender_id != reciever_id) {
-        chatBox.chatWith(id);
-        chatbox.children().last().removeClass("self").addClass("other");
-        chatbox.scrollTop(chatbox[0].scrollHeight);
-        chatBox.notify();
+      chatBox.chatWith(id);
+      chatbox.children().last().removeClass("self").addClass("other");
+      chatbox.scrollTop(chatbox[0].scrollHeight);
+      // chatBox.notify();
     }
+    $('#user-is-typing').html('');
+  }
 <% end %>

@@ -10,6 +10,8 @@
 
 var chatboxFocus = new Array();
 var chatBoxes = new Array();
+var canPublish = true;
+var throttleTime = 3000; //3 seconds
 
 var ready = function () {
 
@@ -181,6 +183,10 @@ var ready = function () {
                     $(chatboxtextarea).val('');
                     $(chatboxtextarea).focus();
                     $(chatboxtextarea).css('height', '44px');
+                    canPublish = false;
+                    setTimeout(function() {
+                        canPublish = true;
+                    }, 500);
                 }
             }
 
@@ -197,6 +203,13 @@ var ready = function () {
                 $(chatboxtextarea).css('overflow', 'auto');
             }
 
+            if(canPublish) {
+              $.post('/conversations/' + conversation_id + '/messages', {message: {body: "", state: "user_typing"}});
+              canPublish = false;
+              setTimeout(function() {
+                canPublish = true;
+              }, throttleTime);
+            }
         },
 
         /**
