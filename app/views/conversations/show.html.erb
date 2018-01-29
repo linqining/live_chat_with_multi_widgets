@@ -12,8 +12,11 @@
 </div>
 <div class="chatboxcontent">
   <% if @messages.any? %>
-      <%= render @messages %>
+    <%= render @messages %>
   <% end %>
+</div>
+<div class="is_typing">
+  <em id="user-is-typing"></em>
 </div>
 <div class="chatboxinput">
   <%= form_for([@conversation, @message], :remote => true, :html => { id: "conversation_form_#{@conversation.id}"}) do |f| %>
